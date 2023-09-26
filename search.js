@@ -4,40 +4,39 @@ const result = document.getElementById( "result");
 const food =[];
 const bar = document.getElementById("search");
 
-function getRecipe(){
-
-    result.innerHTML=" "
+const getRecipe = async function(){
    
-    const api = fetch(`https://forkify-api.herokuapp.com/api/search?q=${bar.value}`)
-    api.then((response)=>{
-        return response.json();
-        }).then((data)=>{
-            // console.log(data);
-           data.recipes.map((ele)=>{
-            const obj = {
-                photo : ele.image_url,
-                publish : ele.publisher,
-                titles : ele.title,
-                id:ele.recipe_id,
-                  link : ele.source_url,
-                  site : ele.publisher_url,   
-            }
-            food.push(obj);
-        
-           })
-        })
+      let api = await fetch(`https://forkify-api.herokuapp.com/api/search?q=${bar.value}`)
+      let res = await api.json()
 
-        // console.log(food);
-        
-        food.map((item)=>{
-            console.log(item);
-            createCard(item)
-        })
-      
+      loaddata(res)
 }
 
+const loaddata = async function (data) {
 
-const createCard = (item)=>{
+    console.log(data);
+
+    data.recipes.map((ele)=>{
+        const foodobj = {
+           photo : ele.image_url,
+           publish : ele.publisher,
+           titles : ele.title,
+           id:ele.recipe_id,
+           link : ele.source_url,
+           site : ele.publisher_url,   
+        }
+        food.push(foodobj);
+    
+       })
+       food.map((item)=>{
+
+        createrack(item)
+     
+     })
+    }
+    
+
+const createrack = (item)=>{
    
     let img  = document.createElement("img")
     let tit  = document.createElement("h3")
@@ -76,10 +75,13 @@ const createCard = (item)=>{
 
 btn.addEventListener('click',(e)=>{
     e.preventDefault()
-    result.innerHTML=""
-    document.getElementById('list').innerHTML= `: ${ bar.value }`
+     result.innerHTML=""
     getRecipe(); 
+   
+    document.getElementById('list').innerHTML= `: ${ bar.value }`
+   
 })
+
 
 bar.addEventListener('keypress',()=>{
     result.innerHTML=" "
