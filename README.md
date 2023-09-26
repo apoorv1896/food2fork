@@ -1,7 +1,7 @@
 # food2fork
 # https://apoorv1896.github.io/food2fork/home.html
 this is food recipe app where i have created using the framework of html javascript css here i have add even listeners and dark modes and many other functionalities
-to makre the site interesting
+to makre the site interesting i have used event listerners like click and input
 ## API's
 ### Search
 Returns a list of recipes for a specific query
